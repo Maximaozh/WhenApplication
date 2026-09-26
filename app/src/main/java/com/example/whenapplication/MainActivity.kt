@@ -1,16 +1,29 @@
 package com.example.whenapplication
 
+import android.R
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.VerticalAlignmentLine
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.whenapplication.ui.theme.WhenApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,28 +33,55 @@ class MainActivity : ComponentActivity() {
         setContent {
             WhenApplicationTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    MainLocation(Modifier.padding(innerPadding))
                 }
             }
         }
     }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+    val inputText by mutableStateOf("Введите текст")
+    val outputText by mutableStateOf("Ответ...")
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    WhenApplicationTheme {
-        Greeting("Android")
+    @Preview(showBackground = true, showSystemUi = true)
+    @Composable
+    fun MainLocation(modifier: Modifier = Modifier)
+    {
+
+        val mod = Modifier
+            .padding(50.dp)
+
+
+
+        Column(mod, verticalArrangement = Arrangement.spacedBy(20.dp))
+        {
+            InputTextAsk("Введите текст")
+            InputField(inputText)
+            OutputText(outputText)
+        }
+    }
+
+    @Composable
+    fun InputTextAsk(textValue : String)
+    {
+        Text(text = textValue)
+    }
+
+    @Composable
+    fun OutputText(textValue : String)
+    {
+        Text(text = textValue)
+    }
+
+
+
+    @Composable
+    fun InputField(textValue : String)
+    {
+        TextField(value = textValue, onValueChange = {handleInputChange(it)})
+    }
+
+    fun handleInputChange(inputString : String)
+    {
+
     }
 }
