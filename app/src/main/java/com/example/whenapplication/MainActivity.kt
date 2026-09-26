@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.VerticalAlignmentLine
@@ -39,8 +40,8 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    val inputText by mutableStateOf("Введите текст")
-    val outputText by mutableStateOf("Ответ...")
+    var inputText by mutableStateOf("")
+    var outputText by mutableStateOf("Ответ...")
 
     @Preview(showBackground = true, showSystemUi = true)
     @Composable
@@ -77,11 +78,29 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun InputField(textValue : String)
     {
-        TextField(value = textValue, onValueChange = {handleInputChange(it)})
+        TextField(value = textValue,
+            onValueChange = {handleInputChange(it)},
+            placeholder = {Text("Введите символ")}
+            )
     }
 
     fun handleInputChange(inputString : String)
     {
+        if(inputString.length > 1)
+            inputText = inputString.last().toString()
+        else
+            inputText = inputString
 
+        if(inputText.length == 1){
+            outputText = when(inputString)
+            {
+                in "0".."9" -> "Это цифра!"
+                in setOf("&","#", "<", "-") -> "Это спец символ!"
+                else -> "Непредусмотренный вариант"
+            }
+            return;
+        }
+
+        outputText = "..."
     }
 }
