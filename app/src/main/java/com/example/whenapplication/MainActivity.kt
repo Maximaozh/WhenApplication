@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
     }
 
     var inputText by mutableStateOf("")
-    var outputText by mutableStateOf("Ответ...")
+    var outputText by mutableStateOf("...")
 
     @Preview(showBackground = true, showSystemUi = true)
     @Composable
