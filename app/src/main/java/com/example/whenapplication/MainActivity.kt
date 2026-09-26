@@ -9,6 +9,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -50,7 +51,8 @@ class MainActivity : ComponentActivity() {
 
         val mod = Modifier
             .padding(50.dp)
-
+            .background(color = Color.Gray)
+            .height(150.dp)
 
 
         Column(mod, verticalArrangement = Arrangement.spacedBy(20.dp))
